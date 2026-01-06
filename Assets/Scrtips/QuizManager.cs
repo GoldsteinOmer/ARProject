@@ -28,6 +28,7 @@ public class QuizManager : MonoBehaviour
 
     private void Start()
     {
+        colorBlindMat.SetFloat("_Mode", 0);
         StartPanel.SetActive(true);
         OptionsPanel.SetActive(false);
         QuizPanel.SetActive(false);
