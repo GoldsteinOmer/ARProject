@@ -5,8 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void PlayGame()
+    public void ScanWorld()
     {
         SceneManager.LoadSceneAsync(1);
+    }
+
+        public void takeATest()
+    {
+        SceneManager.LoadSceneAsync(2);
     }
 }

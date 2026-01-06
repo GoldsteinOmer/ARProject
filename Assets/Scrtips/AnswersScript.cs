@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class AnswersScript : MonoBehaviour
@@ -10,13 +9,11 @@ public class AnswersScript : MonoBehaviour
     {
         if (isCorrect)
         {
-            Debug.Log("Correct Answer");
             quizManager.correct();
         }
         else
         {
-            Debug.Log("Wrong Answer");
-            quizManager.correct();
+            quizManager.wrong();
         }
     }
 }
