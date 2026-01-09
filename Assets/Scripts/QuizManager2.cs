@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
 
 [System.Serializable]
 public class Question 
@@ -25,6 +26,15 @@ public class QuizManager2 : MonoBehaviour
     public TextMeshProUGUI progressScoreText;
     public TMP_InputField nameInputField; 
     public TextMeshProUGUI leaderboardListText;
+    
+    // NEW: Text to show the score and instructions inside NameEntryArea
+    public TextMeshProUGUI endOfQuizMessage; 
+
+    [Header("Feedback Settings")]
+    public GameObject feedbackPanel;    
+    public TextMeshProUGUI feedbackText; 
+    public float delayDuration = 1.0f;
+    public Color darkGreen = new Color(0f, 0.6f, 0f);
 
     [Header("Questions")]
     public List<Question> allQuestions; 
@@ -32,14 +42,24 @@ public class QuizManager2 : MonoBehaviour
     private List<Question> shuffledQuestions;
     private int currentQuestionIndex = 0;
     private int correctAnswers = 0;
+    private bool isProcessing = false;
+
+    private void Start()
+    {
+        if (feedbackPanel != null) feedbackPanel.SetActive(false);
+        if (feedbackText != null) feedbackText.text = "";
+    }
 
     public void StartQuiz()
     {
         correctAnswers = 0;
         currentQuestionIndex = 0;
+        isProcessing = false;
 
         quizPanel.SetActive(true);
         leaderboardPanel.SetActive(false);
+        
+        if (feedbackPanel != null) feedbackPanel.SetActive(false);
 
         if (nameInputField != null) nameInputField.characterLimit = 10;
 
@@ -55,36 +75,54 @@ public class QuizManager2 : MonoBehaviour
         if (currentQuestionIndex < shuffledQuestions.Count)
         {
             questionText.text = shuffledQuestions[currentQuestionIndex].fact;
-            
-            // --- THE FIX ---
-            // Shows: (Correct Answers) / (Questions Completed)
-            // On the first question, it will show 0/0.
             progressScoreText.text = $"Score: {correctAnswers}/{currentQuestionIndex}";
         }
         else
         {
+            // QUIZ FINISHED
             quizPanel.SetActive(false);
             leaderboardPanel.SetActive(true);
             nameEntryArea.SetActive(true);
             displayArea.SetActive(false);
+
+            // UPDATED: Set the personalized message
+            if (endOfQuizMessage != null)
+            {
+                endOfQuizMessage.text = $"You got {correctAnswers} out of {shuffledQuestions.Count} correct!\n\n" +
+                                        "Enter your name to see if you made the Top 10!";
+            }
         }
     }
 
     public void Answer(bool playerAnswer)
     {
-        if (shuffledQuestions == null || currentQuestionIndex >= shuffledQuestions.Count) return;
-        
-        // 1. Check if the answer is correct
-        if (playerAnswer == shuffledQuestions[currentQuestionIndex].isTrue)
+        if (isProcessing || shuffledQuestions == null || currentQuestionIndex >= shuffledQuestions.Count) 
+            return;
+
+        bool isCorrect = (playerAnswer == shuffledQuestions[currentQuestionIndex].isTrue);
+        if (isCorrect) correctAnswers++;
+
+        StartCoroutine(HandleFeedback(isCorrect));
+    }
+
+    IEnumerator HandleFeedback(bool isCorrect)
+    {
+        isProcessing = true;
+        if (feedbackPanel != null && feedbackText != null)
         {
-            correctAnswers++;
+            feedbackText.text = isCorrect ? "Correct!" : "Wrong!";
+            feedbackText.color = isCorrect ? darkGreen : Color.red;
+            feedbackPanel.SetActive(true);
         }
-        
-        // 2. Move to the next index
+
+        yield return new WaitForSeconds(delayDuration);
+
+        if (feedbackText != null) feedbackText.text = "";
+        if (feedbackPanel != null) feedbackPanel.SetActive(false);
+
         currentQuestionIndex++;
-        
-        // 3. Update the text with the new score
         DisplayQuestion();
+        isProcessing = false;
     }
 
     public void SubmitScore()
@@ -139,14 +177,9 @@ public class QuizManager2 : MonoBehaviour
     }
 
     public void OpenLeaderboardDirectly()
-{
-    // Hide the input area (since we aren't saving a score)
-    nameEntryArea.SetActive(false);
-    
-    // Show the actual list area
-    displayArea.SetActive(true);
-
-    // Refresh the text from PlayerPrefs
-    ShowLeaderboard();
-}
+    {
+        nameEntryArea.SetActive(false);
+        displayArea.SetActive(true);
+        ShowLeaderboard();
+    }
 }
