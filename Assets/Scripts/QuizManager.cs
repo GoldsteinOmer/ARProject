@@ -113,7 +113,7 @@ public class QuizManager : MonoBehaviour
 
         if (FeedbackPanel != null && FeedbackTxt != null)
         {
-            FeedbackTxt.text = isCorrect ? "Correct!" : "Wrong Answer!";
+            FeedbackTxt.text = isCorrect ? "Correct!" : "Wrong!";
             FeedbackTxt.color = isCorrect ? new Color(0f, 0.6f, 0f) : Color.red;
             FeedbackPanel.SetActive(true);
         }
