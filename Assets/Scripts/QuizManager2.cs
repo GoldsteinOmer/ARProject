@@ -137,4 +137,16 @@ public class QuizManager2 : MonoBehaviour
         leaderboardPanel.SetActive(false);
         if (nameInputField != null) nameInputField.text = ""; 
     }
+
+    public void OpenLeaderboardDirectly()
+{
+    // Hide the input area (since we aren't saving a score)
+    nameEntryArea.SetActive(false);
+    
+    // Show the actual list area
+    displayArea.SetActive(true);
+
+    // Refresh the text from PlayerPrefs
+    ShowLeaderboard();
+}
 }
