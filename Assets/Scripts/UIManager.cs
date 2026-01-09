@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,27 +12,38 @@ public class UIManager : MonoBehaviour
     public GameObject leaderboardScreen;
     public GameObject learnScreen;
 
-    [Header("Learn Sub-Panels")]
+    [Header("Learn Sub-Panels (The Visuals)")]
     public GameObject normalVisionScreen;
     public GameObject deuteranopiaScreen;
     public GameObject protanopiaScreen;
     public GameObject tritanopiaScreen;
 
+    [Header("Explanation Panels (The Text)")]
+    public GameObject normalTextPanel;
+    public GameObject deutanTextPanel;
+    public GameObject protanTextPanel;
+    public GameObject tritanTextPanel;
+
+    [Header("Content Control")]
+    public Material colorblindShaderMaterial; 
+    public GameObject imageContainer;         
+    public TextMeshProUGUI toggleButtonText;  
+
     [Header("Toggles")]
-    public Toggle normalToggle; // Drag your 'Normal' Toggle here
+    public Toggle normalToggle;
 
     private List<GameObject> allMainScreens;
     private List<GameObject> allLearnSubScreens;
+    private List<GameObject> allTextPanels;
+    
+    private GameObject currentActiveTextPanel;
+    private bool showingText = false;
 
     void Start()
     {
-        allMainScreens = new List<GameObject> { 
-            mainScreen, quizScreen, IntroScreen, leaderboardScreen, learnScreen 
-        };
-
-        allLearnSubScreens = new List<GameObject> { 
-            normalVisionScreen, deuteranopiaScreen, protanopiaScreen, tritanopiaScreen 
-        };
+        allMainScreens = new List<GameObject> { mainScreen, quizScreen, IntroScreen, leaderboardScreen, learnScreen };
+        allLearnSubScreens = new List<GameObject> { normalVisionScreen, deuteranopiaScreen, protanopiaScreen, tritanopiaScreen };
+        allTextPanels = new List<GameObject> { normalTextPanel, deutanTextPanel, protanTextPanel, tritanTextPanel };
 
         ShowScreen(mainScreen);
     }
@@ -39,43 +51,82 @@ public class UIManager : MonoBehaviour
     public void ShowScreen(GameObject screenToShow)
     {
         foreach (var screen in allMainScreens)
-        {
             screen.SetActive(screen == screenToShow);
-        }
 
-        // NEW: If we are opening the Learn Screen, reset it to Normal
         if (screenToShow == learnScreen)
-        {
             ResetLearnPanel();
-        }
     }
 
-    // This forces the UI back to Normal mode
     private void ResetLearnPanel()
     {
-        // 1. Force the Toggle to 'On' (this will trigger ToggleNormal automatically)
-        if (normalToggle != null)
+        if (normalToggle != null) 
         {
             normalToggle.isOn = true;
         }
-
-        // 2. Ensure the correct sub-panel is showing
-        OpenLearnVision(normalVisionScreen);
+        
+        showingText = false;
+        
+        // FIX: Pass BOTH arguments here to match the new function signature
+        OpenLearnVision(normalVisionScreen, normalTextPanel);
+        
+        SetShaderMode(0); 
+        UpdateContentVisibility();
     }
 
-    public void OpenLearnVision(GameObject subPanelToShow)
+    public void SwitchContent()
     {
-        foreach (var subScreen in allLearnSubScreens)
+        showingText = !showingText;
+        UpdateContentVisibility();
+    }
+
+    private void UpdateContentVisibility()
+    {
+        if(imageContainer != null) imageContainer.SetActive(!showingText);
+
+        foreach (var panel in allTextPanels)
         {
-            subScreen.SetActive(subScreen == subPanelToShow);
+            if(panel != null) panel.SetActive(false);
+        }
+
+        if (showingText && currentActiveTextPanel != null)
+        {
+            currentActiveTextPanel.SetActive(true);
+        }
+
+        if (toggleButtonText != null)
+        {
+            toggleButtonText.text = showingText ? "Show Image" : "Show Info";
         }
     }
 
+    // This method now correctly requires two GameObjects
+    public void OpenLearnVision(GameObject subPanelToShow, GameObject textPanelToMatch)
+    {
+        foreach (var subScreen in allLearnSubScreens)
+        {
+            if(subScreen != null) subScreen.SetActive(subScreen == subPanelToShow);
+        }
+
+        currentActiveTextPanel = textPanelToMatch;
+
+        if (showingText)
+        {
+            UpdateContentVisibility();
+        }
+    }
+
+    private void SetShaderMode(int mode)
+    {
+        if (colorblindShaderMaterial != null)
+            colorblindShaderMaterial.SetInt("_Mode", mode);
+    }
+
     // --- TOGGLE HANDLERS ---
-    public void ToggleNormal(bool isOn) { if (isOn) OpenLearnVision(normalVisionScreen); }
-    public void ToggleDeuteranopia(bool isOn) { if (isOn) OpenLearnVision(deuteranopiaScreen); }
-    public void ToggleProtanopia(bool isOn) { if (isOn) OpenLearnVision(protanopiaScreen); }
-    public void ToggleTritanopia(bool isOn) { if (isOn) OpenLearnVision(tritanopiaScreen); }
+    // These now correctly pass both the visual and the text objects
+    public void ToggleNormal(bool isOn) { if (isOn) { OpenLearnVision(normalVisionScreen, normalTextPanel); SetShaderMode(0); } }
+    public void ToggleDeuteranopia(bool isOn) { if (isOn) { OpenLearnVision(deuteranopiaScreen, deutanTextPanel); SetShaderMode(1); } }
+    public void ToggleProtanopia(bool isOn) { if (isOn) { OpenLearnVision(protanopiaScreen, protanTextPanel); SetShaderMode(2); } }
+    public void ToggleTritanopia(bool isOn) { if (isOn) { OpenLearnVision(tritanopiaScreen, tritanTextPanel); SetShaderMode(3); } }
 
     public void GoToMain() => ShowScreen(mainScreen);
 
