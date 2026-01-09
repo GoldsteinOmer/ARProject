@@ -513,9 +513,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 962949793}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3d9b3729f85ca84791bfb7b2a695c26, type: 3}
+  m_Script: {fileID: 11500000, guid: 787d746d97e7b444483388cffdca0a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrackedImageButtons
+  spawnButton: {fileID: 0}
+  spawnParent: {fileID: 0}
+  filterMaterial: {fileID: 0}
+  originalTexture: {fileID: 0}
+  colorOptionsContainer: {fileID: 0}
+  noneToggle: {fileID: 0}
+  deutanToggle: {fileID: 0}
+  protanToggle: {fileID: 0}
+  tritanToggle: {fileID: 0}
+  defaultImageSize: {x: 531, y: 334}
+  uiScaleFactor: 100
+  trackedImagePhysicalSize: {x: 0, y: 0}
+  buttonVerticalOffset: 0
+  rightButtonHorizontalOffset: 50
+  toggleGroupOffset: 50
+  desiredButtonStartX: 0
 --- !u!1 &1075000274
 GameObject:
   m_ObjectHideFlags: 0

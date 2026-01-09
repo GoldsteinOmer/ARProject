@@ -883,7 +883,7 @@ MonoBehaviour:
   spawnButton: {fileID: 5564250200349026148}
   spawnParent: {fileID: 5257506182520514707}
   filterMaterial: {fileID: 2100000, guid: d761340f630348f49b31a04414ad8926, type: 2}
-  originalTexture: {fileID: 2800000, guid: eafd276416f40ad4384243d7328e42e9, type: 3}
+  originalTexture: {fileID: 2800000, guid: 48b5ecbc79aee324abfefde14e6f0244, type: 3}
   colorOptionsContainer: {fileID: 1831867832721512876}
   noneToggle: {fileID: 8934015653306189871}
   deutanToggle: {fileID: 8657195985561728569}
