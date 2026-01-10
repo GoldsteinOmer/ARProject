@@ -2,10 +2,13 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using System.Collections.Generic;
 
-// Attach this script to the GameObject that has the ARTrackedImageManager component
 public class TrackedImageController : MonoBehaviour
 {
     private ARTrackedImageManager arTrackedImageManager; 
+
+    [Header("Placement Adjustments")]
+    public Vector3 rotationCorrection = new Vector3(90, 0, 0); // Fixes the -90 degree tilt
+    public float heightAboveImage = 0.05f; // Moves object 5cm above the physical image
 
     void Awake()
     {
@@ -16,7 +19,6 @@ public class TrackedImageController : MonoBehaviour
     {
         if (arTrackedImageManager != null)
         {
-            // Subscribing to the older, but currently functional, event.
             #pragma warning disable 0618
             arTrackedImageManager.trackedImagesChanged += OnTrackedImagesChanged;
             #pragma warning restore 0618
@@ -27,7 +29,6 @@ public class TrackedImageController : MonoBehaviour
     {
         if (arTrackedImageManager != null)
         {
-            // Unsubscribing from the older event.
             #pragma warning disable 0618
             arTrackedImageManager.trackedImagesChanged -= OnTrackedImagesChanged;
             #pragma warning restore 0618
@@ -36,26 +37,44 @@ public class TrackedImageController : MonoBehaviour
 
     void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
     {
-        // Logic runs for every newly detected image
         foreach (var trackedImage in eventArgs.added)
         {
-            SpawnUIImage uiScript = trackedImage.GetComponentInChildren<SpawnUIImage>();
+            // 1. Fix the Tilt and Height
+            // We adjust the child object so the trackedImage (the parent) stays aligned with AR tracking
+            foreach (Transform child in trackedImage.transform)
+            {
+                // Move the child 'up' relative to the image surface
+                child.localPosition = new Vector3(0, heightAboveImage, 0);
+                
+                // Rotate the child to stand upright
+                child.localEulerAngles = rotationCorrection;
+            }
 
+            // 2. Existing UI Logic
+            SpawnUIImage uiScript = trackedImage.GetComponentInChildren<SpawnUIImage>();
             if (uiScript != null)
             {
                 Vector2 physicalSize = trackedImage.size;
                 uiScript.trackedImagePhysicalSize = physicalSize;
                 
                 float halfWidthInMeters = physicalSize.x / 2.0f;
-                
-                // CRUCIAL: Get the scale factor from the UI script and multiply by 10
                 float uiScale = uiScript.uiScaleFactor * 10f; 
-
-                // Calculate RIGHT EDGE position (for the spawn button)
                 uiScript.desiredButtonStartX = halfWidthInMeters * uiScale;
-
-                // NOTE: desiredButtonEndX calculation is no longer needed/calculated.
             }
+        }
+        
+        // Use 'updated' as well in case the image is lost and regained
+        foreach (var trackedImage in eventArgs.updated)
+        {
+             if (trackedImage.trackingState == UnityEngine.XR.ARSubsystems.TrackingState.Tracking)
+             {
+                 // Ensure children stay corrected during updates if they get reset
+                 foreach (Transform child in trackedImage.transform)
+                 {
+                     child.localPosition = new Vector3(0, heightAboveImage, 0);
+                     child.localEulerAngles = rotationCorrection;
+                 }
+             }
         }
     }
 }

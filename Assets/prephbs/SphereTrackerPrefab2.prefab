@@ -1,0 +1,171 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4936272783950800495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8404078396816820412}
+  m_Layer: 0
+  m_Name: PlacementOffset
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8404078396816820412
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4936272783950800495}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4050887816628631930}
+  m_Father: {fileID: 171247902449132485}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6407037749645798893
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 171247902449132485}
+  - component: {fileID: 5806744247902692442}
+  m_Layer: 0
+  m_Name: SphereTrackerPrefab2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &171247902449132485
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6407037749645798893}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8404078396816820412}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5806744247902692442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6407037749645798893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1049490e13522b49b052ce008f0e5f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrackedImageUIHelper
+  rotationCorrection: {x: 90, y: 0, z: 0}
+  heightAboveImage: 0.05
+--- !u!1001 &863709716805608594
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8404078396816820412}
+    m_Modifications:
+    - target: {fileID: 274030452337438479, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 274030452337438479, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1637850899948055784, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_Name
+      value: SphereTrackerPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1637850899948055784, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732118948558872040, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732118948558872040, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732118948558872040, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732118948558872040, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732118948558872040, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732118948558872040, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732118948558872040, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732118948558872040, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732118948558872040, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732118948558872040, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732118948558872040, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732118948558872040, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732118948558872040, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333683008111459516, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+      propertyPath: rotationSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+--- !u!4 &4050887816628631930 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3732118948558872040, guid: 7fd4a9c4e0fc5aa4587ab985dfc53988, type: 3}
+  m_PrefabInstance: {fileID: 863709716805608594}
+  m_PrefabAsset: {fileID: 0}

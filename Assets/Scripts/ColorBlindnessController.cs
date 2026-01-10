@@ -7,6 +7,15 @@ public class ColorBlindnessController : MonoBehaviour
 
     private static readonly int MatrixPropID = Shader.PropertyToID("_ColorMatrix");
 
+    private void OnDisable()
+{
+    // Reset the material to Normal vision before leaving the scene
+    if (filterMaterial != null)
+    {
+        filterMaterial.SetMatrix(MatrixPropID, Matrix4x4.identity);
+    }
+}
+
     // --- Matrices built from your 3x3 Shader Logic ---
     // Note: Matrix4x4 is Column-Major (Column 0 = Red Input, Column 1 = Green, etc.)
 

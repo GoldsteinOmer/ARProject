@@ -35,9 +35,9 @@ Shader "Custom/ColorblindLinear"
             WriteMask [_StencilWriteMask]
         }
 
-        Cull Off
+        Cull Back //Cull Off
         Lighting Off
-        ZWrite Off
+        ZWrite Off //ZWrite Off
         ZTest [unity_GUIZTestMode]
         Blend SrcAlpha OneMinusSrcAlpha
         ColorMask [_ColorMask]

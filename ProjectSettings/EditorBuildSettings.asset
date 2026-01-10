@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/knowledge.unity
     guid: 50477990e62319e4f90c315053c4bde7
+  - enabled: 1
+    path: Assets/Scenes/OpenWorld 1.unity
+    guid: a7733f322ac9d8c4db4cb066f736d399
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 0465d33c6aee55f44b0237db8b0e0259, type: 2}
