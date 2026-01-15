@@ -924,12 +924,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1075000274}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7456455952559894a90ecc2db6fc48cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ARSceneSwitcher
-  targetSceneName: NewOpenWorld
+  targetSceneName: NewOpenWorld 1
   filterMaterial: {fileID: 2100000, guid: d761340f630348f49b31a04414ad8926, type: 2}
 --- !u!1 &1098964101
 GameObject:
