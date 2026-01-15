@@ -8,18 +8,24 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main menu.unity
     guid: 93de39a103914814fb94b64867b482f1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/NewOpenWorld.unity
     guid: 5f64d840f6753454ab23d18ac3242af0
+  - enabled: 1
+    path: Assets/Scenes/NewOpenWorld 1.unity
+    guid: f5786d2553736cd4a825a629245a1958
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: f53d43c207c10f94aa1c4ab2d3b973da
   - enabled: 1
     path: Assets/Scenes/knowledge.unity
     guid: 50477990e62319e4f90c315053c4bde7
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/OpenWorld 1.unity
     guid: a7733f322ac9d8c4db4cb066f736d399
+  - enabled: 1
+    path: Assets/Scenes/OpenWorld 2.unity
+    guid: fe32dd503f33188419c2b1cf0b3a4361
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 0465d33c6aee55f44b0237db8b0e0259, type: 2}
